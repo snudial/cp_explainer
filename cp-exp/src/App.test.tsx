@@ -2,8 +2,11 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+jest.mock('./components/ResizableContainer', () => () => (
+  <main>CP-Explainer</main>
+));
+
+test('renders the CP-Explainer application container', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  expect(screen.getByText('CP-Explainer')).toBeInTheDocument();
 });

@@ -71,5 +71,11 @@
     "@types/lodash": "^4.17.7",
     "@types/react-katex": "^3.0.4",
     "@types/react-plotly.js": "^2.6.3"
+  },
+  "overrides": {
+    "resolve-url-loader": "5.0.0",
+    "styled-components": {
+      "postcss": "8.5.25"
+    }
   }
 }
