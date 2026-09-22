@@ -29,7 +29,7 @@
 
 ## Requirements
 
-- Python 3.9.2
+- Python 3.10 or newer
 - Conda
 - React with TypeScript
 
