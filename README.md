@@ -29,8 +29,9 @@
 
 ## Requirements
 
-- Python 3.10 or newer
+- Python 3.11 or newer (required by Pillow 13)
 - Conda
+- Node.js 20 or newer
 - React with TypeScript
 
 ---
@@ -44,7 +45,7 @@
 2. **Set up Python Environment**
 
    ```bash
-   conda create -n cp-explainer python=3.9.20
+   conda create -n cp-explainer python=3.11
    conda activate cp-explainer
    pip install -r requirements.txt
    ```
