@@ -1,46 +1,24 @@
-# Getting Started with Create React App
+# CP-Explainer client
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Requirements
 
-## Available Scripts
+Use Node 22.22.2 or newer in the Node 22 line, Node 24.15.0 or newer in the Node 24 line, or Node 26+. Install the locked dependencies with `npm ci`.
 
-In the project directory, you can run:
+## Commands
 
-### `npm start`
+- `npm start`: Vite development server at http://localhost:3000, with React Fast Refresh. The port is fixed because the Python backend's CORS policy allows this origin.
+- `npm test`: run the Vitest suite once in jsdom.
+- `npm run test:watch`: watch tests during development.
+- `npm run typecheck`: check all client TypeScript without emitting files.
+- `npm run build`: type-check, then generate the production site in `build/`.
+- `npm run preview`: serve the production build locally for inspection, not deployment.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The existing browser support policy in `package.json` supplies JavaScript targets and CSS prefixes. Set `PUBLIC_URL` in the build environment to set the static asset base, for example `PUBLIC_URL=/cp/ npm run build`.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Build-chain migration
 
-### `npm test`
+Vite and Vitest replace Create React App's unmaintained `react-scripts` build and Jest toolchain. This removes the legacy minimatch and deepmerge dependency paths rather than forcing incompatible major versions into their consumers. The application, graph algorithms, runtime library versions, and `http://localhost:8000` API URLs are unchanged. Start the Python backend separately as described in the repository README.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The HTML entry is now `index.html`; static assets remain in `public/`. `npm test` is a single run instead of watch mode. CRA's `eject` command and its bundled ESLint integration are no longer present; `npm run build` runs the explicit TypeScript gate, not a lint gate. Tests use `vi.mock` with an explicit default export instead of Jest's factory convention.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+No deployment command is part of these scripts. Roll back the migration as one commit if necessary; do not restore individual legacy overrides into the new toolchain.
